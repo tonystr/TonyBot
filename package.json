@@ -1,0 +1,28 @@
+{
+  "name": "self.bot",
+  "version": "1.0.0",
+  "description": "Descriptioj",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bit"
+  ],
+  "author": "TonyStr",
+  "license": "ISC",
+  "dependencies": {
+    "concat-stream": "^1.6.1",
+    "discord.js": "^11.3.0",
+    "eslintrc": "^1.0.6",
+    "hastebin-generator": "^1.1.4",
+    "jimp": "^0.2.28",
+    "lint": "^1.1.2",
+    "puppeteer": "^1.2.0",
+    "request": "^2.85.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-strongloop": "^2.1.0"
+  }
+}

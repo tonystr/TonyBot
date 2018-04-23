@@ -1,0 +1,5 @@
+# No node modules!
+node_modules/
+
+# Keep my auth outta the web!
+/src/auth.json
