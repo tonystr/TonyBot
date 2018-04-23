@@ -21,6 +21,7 @@ let scripts = {
 	lospec: require('./commands/lospec.js'),
 	miniboss: require('./commands/miniboss.js'),
 	marketplace: require('./commands/marketplace.js'),
+	quote: require('./commands/quote.js'),
 	haste: haste
 };
 scripts.website = scripts.link;
@@ -37,6 +38,8 @@ let params = {
 	embed: paramEmbed
 };
 
+// 438048 886687 531009
+
 function command(message) {
 	if (!message.author || !message.author.equals(bot.user)) return;
 	if (message.content.indexOf('```') === 0) {
@@ -46,6 +49,9 @@ function command(message) {
 			end = end ? end.index : message.content.length;
 			haste(message, message.content.slice(match[0].length, end + 1));
 		}
+		return;
+	} else if (message.content.match(/"\d{18}"/)) {
+		message.channel.send(scripts.quote(message.channel, message.content.match(/"\d{18}"/)[0].slice(1, -1))).catch(() => {});
 		return;
 	}
 	if (message.content.charAt(0) !== prefix) return;
