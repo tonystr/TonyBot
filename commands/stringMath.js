@@ -74,18 +74,18 @@ module.exports = function(msg, args) {
 		if (callStack.length < 1) break;
 		for (let i = 0; i < callStack.length; i++) {
 			switch (callStack[i]) {
-				case stage + '*': variables[i] *= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
-				case stage + '/': variables[i] /= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
-				case stage + '%': variables[i] %= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
+				case `${stage}*`: variables[i] *= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
+				case `${stage}/`: variables[i] /= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
+				case `${stage}%`: variables[i] %= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
 					// Bitwise operators
-				case stage + '&': variables[i] &= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
-				case stage + '|': variables[i] |= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
-				case stage + '⊕': variables[i] ^= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
+				case `${stage}&`: variables[i] &= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
+				case `${stage}|`: variables[i] |= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
+				case `${stage}⊕`: variables[i] ^= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
 
-				case stage + '+': variables[i] += Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
-				case stage + '-': variables[i] -= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
+				case `${stage}+`: variables[i] += Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
+				case `${stage}-`: variables[i] -= Number(variables[i + 1]); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
 
-				case stage + '^': variables[i] = Math.pow(variables[i], Number(variables[i + 1])); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
+				case `${stage}^`: variables[i] = Math.pow(variables[i], Number(variables[i + 1])); callStack.splice(i, 1); variables.splice(i-- + 1, 1); break;
 				default: break;
 			}
 			console.log(variables);

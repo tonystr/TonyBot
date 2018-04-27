@@ -22,7 +22,8 @@ let scripts = {
 	miniboss: require('./commands/miniboss.js'),
 	marketplace: require('./commands/marketplace.js'),
 	quote: require('./commands/quote.js'),
-	haste: haste
+	haste: haste,
+	github: require('./commands/gmgithub.js')
 };
 scripts.website = scripts.link;
 scripts.palettes = scripts.palette;
@@ -85,7 +86,7 @@ function haste(message, string) {
 		res.setEncoding('utf8');
 		res.on('data', (chunk) => { resStr += chunk });
 		res.on('end', () => {
-			message.channel.send('http://haste.gmcloud.org/' + JSON.parse(resStr).key);
+			message.channel.send(`http://haste.gmcloud.org/${JSON.parse(resStr).key}`);
 			message.delete().catch(() => {});
 		});
 	});
@@ -200,7 +201,7 @@ function callScript(message, args) {
 					message.channel.send(out.embed);
 				} else {
 					try {
-						out.then((prom) => { if (prom !== undefined) console.log('Script call recieved promise: ' + prom); });
+						out.then((prom) => { if (prom !== undefined) console.log(`Script call recieved promise: ${prom}`); });
 					} catch(e) {
 						let msg = '';
 						if (out.pretag)  msg += out.pretag;
@@ -224,7 +225,7 @@ function paramShow(message, args, out) {
 		if (!(args[i].charAt(0) === paramPrefix && args[i].slice(1) in params)) break;
 		paramLength += args[i].length;
 	}
-	out.pretag += message.content.slice(args[0].length + 1, -paramLength) + '`` = ``';
+	out.pretag += `${message.content.slice(args[0].length + 1, -paramLength)}\`\` = \`\``;
 	console.log(`paramShow(${args})`);
 }
 
@@ -252,7 +253,7 @@ function sendRepeat(callback, message, times) {
 
 	let out = '';
 	for (let i = 0; i < times; i++) {
-		out += callback(i) + '\n';
+		out += `${callback(i)}\n`;
 	}
 
 	message.channel.send(out);
@@ -266,6 +267,6 @@ function fizzbuzz(num) {
 
 bot.on('ready', () => console.log('Bot Ready'));
 bot.on('message', command);
-bot.on('error', err => console.log('Bot Handled Error: ' + err));
+bot.on('error', err => console.log(`Bot Handled Error: ${err}`));
 
 bot.login(auth.Token);

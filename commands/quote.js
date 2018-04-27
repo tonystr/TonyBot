@@ -22,7 +22,7 @@ module.exports = function(channel, string) {
             channel.send(embed).catch(() => {});
         } else {
             console.log(`Error fetching message: ${msg} from: ${string} in channel: ${channel}`);
-            return;
+            
         }
     }).catch(err => console.log(err));
 }

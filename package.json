@@ -12,6 +12,7 @@
   "author": "TonyStr",
   "license": "ISC",
   "dependencies": {
+    "@octokit/rest": "^15.2.6",
     "concat-stream": "^1.6.1",
     "discord.js": "^11.3.0",
     "eslintrc": "^1.0.6",

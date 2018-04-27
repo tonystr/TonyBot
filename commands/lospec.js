@@ -24,12 +24,12 @@ function tutorial(msg, args) {
 	if (args.length < 1) {
 		let rnd = ((Math.random() < 1 / 16) && ', ya dingus') || '';
 		msg.delete().catch(() => {});
-		msg.channel.send('Invalid command usage' + rnd + '! Proper usage: ``!lospec-tutorial [tutorial name]``');
+		msg.channel.send(`Invalid command usage${rnd}! Proper usage: \`\`!lospec-tutorial [tutorial name]\`\``);
 		return;
 	}
 
 	// Find name of palette, spaces changed to dashes, for link purposes. Lowercased.
-	let tagstr = (args.reduce((acc, val) => acc + ',' + val)).toLowerCase();
+	let tagstr = (args.reduce((acc, val) => `${acc},${val}`)).toLowerCase();
 	console.log(tagstr);
 
 	// Create the embed
@@ -41,7 +41,7 @@ function tutorial(msg, args) {
 
 	let resStr = '';
 
-	https.get('https://lospec.com/pixel-art-tutorials/tags/' + tagstr, (res) => {
+	https.get(`https://lospec.com/pixel-art-tutorials/tags/${tagstr}`, (res) => {
 
 
 		res.on('data', function(chunk) {
@@ -69,9 +69,9 @@ function tutorial(msg, args) {
 			let thumbnail = content.match(/<\s*div\b.*?class\s*=\s*(['"]).*?\bthumbnail\b.*?\1.*?style\s*=\s*['"].*?\bbackground-image\s*:\s*url\s*\((['"])(.*?\b)\2/i);
 			if (!thumbnail) thumbnail = content.match(/<\s*div\b.*?style\s*=\s*(['"]).*?\bbackground-image\s*:\s*url\s*\((['"])(.*?\b)\2\);?\1.*?class\s*=\s*(['"]).*?\bthumbnail\b.*?\1/i);
 			if (thumbnail) {
-				embed.setURL('https://lospec.com/pixel-art-tutorials/' +  thumbnail[3].match(/\/[^/]+$/i)[0].slice(1, -thumbnail[3].match(/\.[^/]+$/i)[0].length));
+				embed.setURL(`https://lospec.com/pixel-art-tutorials/${thumbnail[3].match(/\/[^/]+$/i)[0].slice(1, -thumbnail[3].match(/\.[^/]+$/i)[0].length)}`);
 				if (!thumbnail[3].match(/^https?:\//i)) {
-					thumbnail[3] = 'https://lospec.com' + thumbnail[3];
+					thumbnail[3] = `https://lospec.com${thumbnail[3]}`;
 				}
 				embed.setImage(thumbnail[3]);
 			}
@@ -88,9 +88,9 @@ function tutorial(msg, args) {
 
 			if (author) {
 				if (!author[2].match(/^https?:\//i)) {
-					author[2] = 'https://lospec.com' + author[2];
+					author[2] = `https://lospec.com${author[2]}`;
 				}
-				embed.addField(description, 'by [' + author[4] + '](' + author[2] + ')');
+				embed.addField(description, `by [${author[4]}](${author[2]})`);
 			}
 			// console.log(author[4] + ' | ' +  author[2]);
 
@@ -105,7 +105,7 @@ function tutorial(msg, args) {
 		});
 	}).on('error', (err) => {
 		// Oh god. Oh man. This should not happen.
-		console.log('Error getting lospec page (palette.js): ' + err.message);
+		console.log(`Error getting lospec page (palette.js): ${err.message}`);
 		// Send the embed anyway. It should say "Palette Not Found"
 		msg.channel.send({ embed });
 		msg.delete().catch(() => {});

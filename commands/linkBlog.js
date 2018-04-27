@@ -14,12 +14,12 @@ module.exports = function(message) {
 	getTitle(1, 3);
 
 	function getTitle(page, max) {
-		console.log('called getTitle(' + page + ', ' + max + ')');
+		console.log(`called getTitle(${page}, ${max})`);
 		if (page >= max) {
 			message.channel.send(embed);
 			
 		} else {
-			https.get('https://tonystr.net/blog/' + page + '.html', (res) => {
+			https.get(`https://tonystr.net/blog/${page}.html`, (res) => {
 				res.on('data', function (chunk) {
 
 					// Turn the data into a string
@@ -43,7 +43,7 @@ module.exports = function(message) {
 								endtaglen = out.slice(pretaglen).match('<\s*\/\s*h3>')[0].length;
 								let date  = out.slice(pretaglen, -endtaglen);
 
-								embed.addField(date, '[' + title + '](https://tonystr.net/blog/' + page + '.html)');
+								embed.addField(date, `[${title}](https://tonystr.net/blog/${page}.html)`);
 							}
 						}
 						getTitle(++page, max);
